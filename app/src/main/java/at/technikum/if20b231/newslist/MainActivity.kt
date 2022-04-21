@@ -5,54 +5,57 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.navigation.NavHostController
-import at.technikum.if20b231.newslist.handler.NetworkActivity
-import at.technikum.if20b231.newslist.modle.Page
+import androidx.navigation.compose.rememberNavController
+import at.technikum.if20b231.newslist.screens.SetupNavGraph
+import at.technikum.if20b231.newslist.ui.theme.NewsListTheme
 
 class MainActivity : ComponentActivity() {
+
 
     // NavHost
     private lateinit var navController: NavHostController
 
     //VieModel
-    private val model: NewsListViewModel by viewModels()
+     val viewModel by viewModels<NewsListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+       //viewModel = ViewModelProvider(this).get(NewsListViewModel::class.java)
+
+        
         setContent {
 
+           // viewModel.getPages()
 
-
-
-            var network = NetworkActivity()
-            network.loadPage()
-            var pages: List<Page>? = network.pages
-
-
-
-
-
-
-         //  NewsListTheme {
-         //      navController = rememberNavController()
-         //      SetupNavGraph(navController = navController)
-         //  }
-
-
-    //   var pages: List<Page>? = null
-
-    //       pages = GetXMLFromFile().loadXML()
-
-
-
-
-
-
-
-
-
-
+             NewsListTheme {
+                 navController = rememberNavController()
+                SetupNavGraph(navController = navController,viewModel)
+             }
+       //   ShowListOfPages(navController,pages)
         }
 
+
+
     }
+
 }
+
+
+
+
+
+
+
+//  NewsListTheme {
+//      navController = rememberNavController()
+//      SetupNavGraph(navController = navController)
+//  }
+
+
+//   var pages: List<Page>? = null
+
+//       pages = GetXMLFromFile().loadXML()
+
 

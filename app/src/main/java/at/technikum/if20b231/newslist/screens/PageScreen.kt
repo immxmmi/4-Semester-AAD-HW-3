@@ -1,5 +1,6 @@
 package at.technikum.if20b231.newslist.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,16 +12,19 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import at.technikum.if20b231.newslist.NewsListViewModel
 import at.technikum.if20b231.newslist.R
 import at.technikum.if20b231.newslist.modle.Page
 
+
 @Composable
-fun PageScreen(navController: NavController) {
+fun PageScreen(navController: NavController, viewModel: NewsListViewModel) {
+    val context = LocalContext.current
     var page = Page("test", "test", "test", "test", null, "test", "test")
     Column {
         TopAppBar(
@@ -99,7 +103,12 @@ fun PageScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color.Blue)
                     .fillMaxWidth(),
-                onClick = { navController.navigate(Screen.Home.route) }) {
+                onClick = {
+                             Toast.makeText(context,"Hallo Welt", Toast.LENGTH_SHORT).show()
+
+                    //navController.navigate(Screen.ListPage.route)
+
+                }) {
                 Text(text = "back")
             }
         }
@@ -108,7 +117,6 @@ fun PageScreen(navController: NavController) {
 }
 
 @Composable
-@Preview(showBackground = true)
-fun ShowSinglePage(){
-    PageScreen(navController = rememberNavController())
+fun ShowSinglePage(navController: NavController, viewModel: NewsListViewModel){
+    PageScreen(navController = rememberNavController(),viewModel)
 }

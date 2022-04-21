@@ -1,6 +1,5 @@
 package at.technikum.if20b231.newslist.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,12 +19,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import at.technikum.if20b231.newslist.NewsListViewModel
 import at.technikum.if20b231.newslist.R
 import at.technikum.if20b231.newslist.modle.Page
 import at.technikum.if20b231.newslist.ui.theme.NewsListTheme
 
 @Composable
-fun PageItem(page: Page){
+fun PageItem(page: Page,
+             navController: NavController
+){
     val context = LocalContext.current
     Row(
         modifier = Modifier
@@ -40,19 +43,48 @@ fun PageItem(page: Page){
 
         Text(
             modifier = Modifier.clickable(enabled = true){
-                Toast.makeText(context,"Hallo Wei", Toast.LENGTH_SHORT).show()
+                                                         // Toast.makeText(context,"Hallo Welt", Toast.LENGTH_SHORT).show()
+                navController.navigate(route = Screen.PageDetail.route)
             },
             text = "${page.title}",
             color = Color.Black,
             fontWeight = FontWeight.Bold,
             fontSize = 12.sp
         )
-
     }
 }
 
 @Composable
-fun ShowListOfPages (PageList : List<Page> ) {
+fun ShowListOfPages (navController: NavController,model: NewsListViewModel) {
+//fun ShowListOfPages (navController: NavController,pages: List<Page>) {
+    var page: List<Page>? = model.loadTest()
+    if (page == null){
+        page = listOf(
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","b","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","b","Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","b","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","b","c","d",null,"d","d"),
+            Page("Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics","b","c","d",null,"d","d"),
+        )
+    }
+
+
     NewsListTheme {
         Surface(color = MaterialTheme.colors.background) {
             Column {
@@ -60,11 +92,13 @@ fun ShowListOfPages (PageList : List<Page> ) {
                 TopAppBar(
                     title = { Text(stringResource(R.string.app_title)) })
                 LazyColumn {
-                    items(items = PageList) { page ->
-                        PageItem(page = page)
+                    items(items = page) { page ->
+                        PageItem(page = page,navController)
                     }
                 }
             }
         }
     }
 }
+
+

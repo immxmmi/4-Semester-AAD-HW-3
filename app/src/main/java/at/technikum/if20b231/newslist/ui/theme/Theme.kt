@@ -42,3 +42,21 @@ fun NewsListTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composab
         content = content
     )
 }
+
+@Composable
+fun LazyColumnDemoTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val colors = if (darkTheme) {
+        DarkColorPalette
+    } else {
+        LightColorPalette
+    }
+
+    MaterialTheme(
+        colors = colors,
+        shapes = Shapes,
+        content = content
+    )
+}
