@@ -43,6 +43,17 @@ class NewsListViewModel : ViewModel() {
 
     }
 
+    public fun orderListByDate (pages:List<Page>): List<Page> {
+        return pages.sortedBy { it.pubDate }
+    }
+
+    public fun orderListByAuthor (pages:List<Page>): List<Page> {
+        return pages.sortedBy { it.author }
+    }
+
+    public fun orderListByTitle(pages:List<Page>): List<Page> {
+        return pages.sortedBy { it.title }
+    }
 
     fun getPages(): LiveData<List<Page>> {
         return pages
