@@ -72,7 +72,7 @@ fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
 
     val data by model.load.observeAsState()
     var page = data ?: emptyList()
-
+    val context = LocalContext.current
     NewsListTheme {
         Surface(color = MaterialTheme.colors.background) {
             Column {
@@ -88,7 +88,7 @@ fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
 
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF2D7637)),
                     onClick = {
-                        // TODO: RELOAD
+                       TODO()
                     }
 
                 ) {

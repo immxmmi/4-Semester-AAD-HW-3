@@ -10,8 +10,9 @@ import at.technikum.if20b231.newslist.modle.Page
 import at.technikum.if20b231.newslist.viewmodel.NewsListViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.util.*
 
-private var formatter: DateFormat? = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz")
+private var formatter: DateFormat? = SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy")
 
 @Composable
 fun SetupNavGraph(navController: NavHostController, viewModel: NewsListViewModel) {
@@ -66,13 +67,14 @@ fun SetupNavGraph(navController: NavHostController, viewModel: NewsListViewModel
                 },
             )
         ) { entry ->
-            var date = entry.arguments?.getString("pubDate")
+
+            var date: Date? = formatter?.parse(entry.arguments?.getString("pubDate"))
             var page = Page(
                 entry.arguments?.getString("id"),
                 entry.arguments?.getString("title"),
                 entry.arguments?.getString("author"),
                 entry.arguments?.getString("description"),
-                null,
+                date,
                 //formatter?.parse(date),
                 entry.arguments?.getString("imageURL"),
                 entry.arguments?.getString("url")
