@@ -1,11 +1,11 @@
 
 "#Homework 3 – News List"
 Tasks
-• Use a RecyclerView (classical UI) or a LazyColumn (Jetpack Compose), respectively, to display
+1. Use a RecyclerView (classical UI) or a LazyColumn (Jetpack Compose), respectively, to display
 the news items
 o Display the item title in the list
 o When clicking a list item, navigate to a details page
-• On the details page show, the
+2. On the details page show, the
 o Unique identifier
 o Title
 o Description
@@ -14,7 +14,7 @@ o Author
 o Publication date
 o Full article link
 o Keywords
-• Load the RSS feed from the internet
+3. Load the RSS feed from the internet
 o Download the feed in the background.
 o Parse the RSS feed into Kotlin data objects.
 o Parsing must be done in the background.
@@ -23,7 +23,7 @@ appropriate data types.
 o Implement both parts (downloading and parsing) in a news list view model class.
 o Implement an option for reloading the data.
 o Sort the news item list by date (newest on top).
-• Use LiveData to update the UI automatically after the data is downloaded and parsed.
+4. Use LiveData to update the UI automatically after the data is downloaded and parsed.
 Remarks:
 • The UI must be functional. The layout will not be graded as we will implement a refined
 layout in the next assignment
