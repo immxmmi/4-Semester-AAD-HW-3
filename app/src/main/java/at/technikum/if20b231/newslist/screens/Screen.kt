@@ -4,4 +4,13 @@ sealed class Screen(val route: String){
     object Home: Screen("home_screen")
     object ListPage: Screen("list_of_pages_screen")
     object PageDetail: Screen("page_screen")
+
+    fun withArgs(vararg args: String) : String{
+        return buildString {
+            append(route)
+            args.forEach { arg ->
+             append("/$arg")
+            }
+        }
+    }
 }

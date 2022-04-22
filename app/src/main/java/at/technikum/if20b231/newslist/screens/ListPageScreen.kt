@@ -6,10 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -47,7 +44,16 @@ fun PageItem(
         Text(
             modifier = Modifier.clickable(enabled = true) {
                 // Toast.makeText(context,"Hallo Welt", Toast.LENGTH_SHORT).show()
-                navController.navigate(route = Screen.PageDetail.route)
+                navController.navigate(route = Screen.PageDetail.withArgs(
+                    page.id.orEmpty(),
+                    page.title.orEmpty(),
+                    page.author.orEmpty(),
+                    page.descriptor.orEmpty().replace("/","\\"),
+                    page.pubDate.toString(),
+                    page.imageURL.orEmpty().replace("/","\\"),
+                    page.articleURL.toString().replace("/","\\")
+//
+                ))
             },
             text = "${page.title}",
             color = Color.Black,
@@ -63,13 +69,29 @@ fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
     val data by model.load.observeAsState()
     var page = data ?: emptyList()
 
-
         NewsListTheme {
             Surface(color = MaterialTheme.colors.background) {
                 Column {
 
                     TopAppBar(
                         title = { Text(stringResource(R.string.app_title)) })
+                    Button(
+                        modifier = Modifier
+                            .background(Color.White)
+                            .fillMaxWidth()
+                            .border(0.02.dp, color = Color.Black)
+                            .padding(8.dp),
+
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
+                        onClick = { /*TODO*/ }
+
+                    ) {
+                        Text(
+                            color = Color.White,
+                            text = stringResource(R.string.reload)
+                        )
+
+                    }
                     LazyColumn {
                         items(items = page) { page ->
                             PageItem(page = page, navController)

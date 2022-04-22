@@ -2,11 +2,16 @@ package at.technikum.if20b231.newslist.screens
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import at.technikum.if20b231.newslist.NewsListViewModel
+import at.technikum.if20b231.newslist.modle.Page
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
-
+private var formatter: DateFormat? = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz")
 @Composable
 fun SetupNavGraph(
     navController: NavHostController,
@@ -31,10 +36,57 @@ fun SetupNavGraph(
         }
 
         // Single Page
-        composable(
-            route = Screen.PageDetail.route
-        ){
-            ShowSinglePage(navController = navController,viewModel)
-        }
+         composable(route = Screen.PageDetail.route + "/{id}/{title}/{author}/{description}/{pubDate}/{imageURL}/{url}",
+         arguments = mutableListOf(
+             navArgument("id"){
+                 type = NavType.StringType
+                 defaultValue = "empty"
+                 nullable = true
+             },
+             navArgument("title"){
+                 type = androidx.navigation.NavType.StringType
+                 defaultValue = "empty"
+                 nullable = true
+             },
+             navArgument("author"){
+                 type = NavType.StringType
+                 defaultValue = "empty"
+                 nullable = true
+             },
+             navArgument("description"){
+                 type = androidx.navigation.NavType.StringType
+                 defaultValue = "empty"
+                 nullable = true
+             },
+             navArgument("pubDate"){
+                 type = NavType.StringType
+                 defaultValue = "empty"
+                 nullable = true
+             },
+             navArgument("imageURL"){
+                 type = NavType.StringType
+                 defaultValue = "empty"
+                 nullable = true
+             },
+             navArgument("url"){
+                 type = NavType.StringType
+                 defaultValue = "empty"
+                 nullable = true
+             },
+         )
+             ){entry ->
+             var date = entry.arguments?.getString("pubDate")
+             var page = Page(
+                 entry.arguments?.getString("id"),
+                 entry.arguments?.getString("title"),
+                 entry.arguments?.getString("author"),
+                 entry.arguments?.getString("description"),
+                 null,
+                 //formatter?.parse(date),
+                entry.arguments?.getString("imageURL"),
+                entry.arguments?.getString("url")
+             )
+             ShowSinglePage(navController = navController,page)
+         }
     }
 }
