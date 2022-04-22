@@ -1,34 +1,34 @@
 
 "#Homework 3 – News List"
-Tasks
+##Tasks
 1. Use a RecyclerView (classical UI) or a LazyColumn (Jetpack Compose), respectively, to display
 the news items
-o Display the item title in the list
-o When clicking a list item, navigate to a details page
+- Display the item title in the list
+- When clicking a list item, navigate to a details page
 2. On the details page show, the
-o Unique identifier
-o Title
-o Description
-o Image URL
-o Author
-o Publication date
-o Full article link
-o Keywords
+- Unique identifier
+- Title
+- Description
+- Image URL
+- Author
+- Publication date
+- Full article link
+- Keywords
 3. Load the RSS feed from the internet
-o Download the feed in the background.
-o Parse the RSS feed into Kotlin data objects.
-o Parsing must be done in the background.
-o The data object must contain all necessary items (see above). Make sure to use
+- Download the feed in the background.
+- Parse the RSS feed into Kotlin data objects.
+- Parsing must be done in the background.
+- The data object must contain all necessary items (see above). Make sure to use
 appropriate data types.
-o Implement both parts (downloading and parsing) in a news list view model class.
-o Implement an option for reloading the data.
-o Sort the news item list by date (newest on top).
+- Implement both parts (downloading and parsing) in a news list view model class.
+- Implement an option for reloading the data.
+- Sort the news item list by date (newest on top).
 4. Use LiveData to update the UI automatically after the data is downloaded and parsed.
-Remarks:
+##Remarks:
 • The UI must be functional. The layout will not be graded as we will implement a refined
 layout in the next assignment
 • Implement the application using classical Android UI or Jetpack Compose.
-Grading
+##Grading
 1. The title of all items is displayed within a RecyclerView or LazyColumn element – 10
 2. When clicking a list item, navigation to a details page is triggered. Navigating back to the list
 works. – 10
