@@ -1,5 +1,5 @@
-"# ADD--NEWS" 
-Homework 3 – News List
+
+"#Homework 3 – News List"
 Tasks
 • Use a RecyclerView (classical UI) or a LazyColumn (Jetpack Compose), respectively, to display
 the news items
