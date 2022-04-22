@@ -3,6 +3,8 @@ package at.technikum.if20b231.newslist.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -19,7 +21,10 @@ import at.technikum.if20b231.newslist.modle.Page
 
 @Composable
 fun SinglePageScreen(page: Page) {
-    Column {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+    ) {
         TopAppBar(
             title = { Text(stringResource(R.string.pageTitle)) })
 
@@ -28,11 +33,31 @@ fun SinglePageScreen(page: Page) {
                 .background(Color.White)
                 .fillMaxSize(),
         ) {
+            page.pubDate?.let {
+                Text(
+                    text = "Publication date: ",
+                    color = Color.Black,
+                    fontSize = 14.sp,
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            page.pubDate?.let {
+                Text(
+                    text = "$it",
+                    color = Color.Black,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal
+                )
+            }
+
             page.id?.let {
                 Text(
                     text = "Unique identifier:",
                     color = Color.Black,
                     fontSize = 14.sp,
+                    textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -49,6 +74,7 @@ fun SinglePageScreen(page: Page) {
                     text = "Title:",
                     color = Color.Black,
                     fontSize = 14.sp,
+                    textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -67,6 +93,7 @@ fun SinglePageScreen(page: Page) {
                     text = "Author:",
                     color = Color.Black,
                     fontSize = 14.sp,
+                    textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -85,6 +112,7 @@ fun SinglePageScreen(page: Page) {
                     text = "Description:",
                     color = Color.Black,
                     fontSize = 14.sp,
+                    textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -97,29 +125,12 @@ fun SinglePageScreen(page: Page) {
                 )
             }
 
-            page.pubDate?.let {
-                Text(
-                    text = "Publication date: ",
-                    color = Color.Black,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-            page.author?.let {
-                Text(
-                    text = "$it",
-                    color = Color.Black,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal
-                )
-            }
-
             page.imageURL?.let {
                 Text(
                     text = "Image URL:",
                     color = Color.Black,
                     fontSize = 14.sp,
+                    textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -139,7 +150,8 @@ fun SinglePageScreen(page: Page) {
                     text = "Full article link:",
                     color = Color.Black,
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                            textDecoration = TextDecoration.Underline
                 )
             }
 

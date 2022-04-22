@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -85,7 +86,7 @@ fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
                         .border(0.02.dp, color = Color.Black)
                         .padding(8.dp),
 
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF2D7637)),
                     onClick = {
                         // TODO: RELOAD
                     }
@@ -93,6 +94,7 @@ fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
                 ) {
                     Text(
                         color = Color.White,
+                        fontFamily= FontFamily.Monospace,
                         text = stringResource(R.string.reload)
                     )
 
