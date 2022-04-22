@@ -22,25 +22,15 @@ class NewsListViewModel : ViewModel() {
             loadPages(it)
         }
     }
-
-     fun loadTest(): List<Page>? {
-         var pages: List<Page>? = null
-             viewModelScope.launch {
-             pages = loadWebResult()
-         }
-         return pages
-     }
+    val load:LiveData<List<Page>>
+        get() = pages
 
 
 
     private fun loadPages(liveData: MutableLiveData<List<Page>>) {
         viewModelScope.launch {
-            //delay(2000)
-            var pages:List<Page>? = loadWebResult()
-            liveData.value = pages
-            liveData.value
+            liveData.value =  loadWebResult()
         }
-
     }
 
     public fun orderListByDate (pages:List<Page>): List<Page> {
@@ -61,26 +51,17 @@ class NewsListViewModel : ViewModel() {
 
 
     //LOAD RESULT
-    private suspend fun loadWebResult(): List<Page>? {
+    private suspend fun loadWebResult(): List<Page> {
 
         val url = "https://www.engadget.com/rss.xml"
-        val result = withContext(Dispatchers.IO) { loadXmlFromNetwork(url) }
 
-
-
-        if (result == null) {
-
-
-        } else {
-
-           // withContext(Dispatchers.Default) {
-                 return result
-            //}
-        }
-        return null
+        return withContext(Dispatchers.IO) { loadXmlFromNetwork(url) }
     }
 
 }
+
+
+
 
 @Throws(XmlPullParserException::class, IOException::class)
 private fun loadXmlFromNetwork(urlString: String): List<Page> {
