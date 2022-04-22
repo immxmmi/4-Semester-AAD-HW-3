@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import at.technikum.if20b231.newslist.screens.SetupNavGraph
 import at.technikum.if20b231.newslist.ui.theme.NewsListTheme
+import at.technikum.if20b231.newslist.viewmodel.NewsListViewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -16,46 +17,21 @@ class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
 
     //VieModel
-     val viewModel by viewModels<NewsListViewModel>()
+    private val viewModel by viewModels<NewsListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-       //viewModel = ViewModelProvider(this).get(NewsListViewModel::class.java)
-
-        
         setContent {
-
-           // viewModel.getPages()
-
              NewsListTheme {
                  navController = rememberNavController()
                 SetupNavGraph(navController = navController,viewModel)
              }
-       //   ShowListOfPages(navController,pages)
         }
-
-
 
     }
 
 }
 
-
-
-
-
-
-
-//  NewsListTheme {
-//      navController = rememberNavController()
-//      SetupNavGraph(navController = navController)
-//  }
-
-
-//   var pages: List<Page>? = null
-
-//       pages = GetXMLFromFile().loadXML()
 
 

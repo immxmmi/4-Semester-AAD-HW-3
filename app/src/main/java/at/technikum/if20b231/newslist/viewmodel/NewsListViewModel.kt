@@ -1,4 +1,4 @@
-package at.technikum.if20b231.newslist
+package at.technikum.if20b231.newslist.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,42 +26,33 @@ class NewsListViewModel : ViewModel() {
         get() = pages
 
 
-
+    // LOAD
     private fun loadPages(liveData: MutableLiveData<List<Page>>) {
         viewModelScope.launch {
-            liveData.value =  loadWebResult()
+            liveData.value =  orderListByDate(loadWebResult())
         }
     }
 
-    public fun orderListByDate (pages:List<Page>): List<Page> {
+    // SORTER
+     private fun orderListByDate (pages:List<Page>): List<Page> {
         return pages.sortedBy { it.pubDate }
     }
 
-    public fun orderListByAuthor (pages:List<Page>): List<Page> {
+     private fun orderListByAuthor (pages:List<Page>): List<Page> {
         return pages.sortedBy { it.author }
     }
 
-    public fun orderListByTitle(pages:List<Page>): List<Page> {
+     private fun orderListByTitle(pages:List<Page>): List<Page> {
         return pages.sortedBy { it.title }
     }
 
-    fun getPages(): LiveData<List<Page>> {
-        return pages
-    }
-
-
     //LOAD RESULT
-    private suspend fun loadWebResult(): List<Page> {
-
+    private suspend fun loadWebResult(): List<Page>  {
         val url = "https://www.engadget.com/rss.xml"
-
         return withContext(Dispatchers.IO) { loadXmlFromNetwork(url) }
     }
 
 }
-
-
-
 
 @Throws(XmlPullParserException::class, IOException::class)
 private fun loadXmlFromNetwork(urlString: String): List<Page> {

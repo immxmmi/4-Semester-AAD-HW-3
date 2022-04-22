@@ -1,5 +1,6 @@
 package at.technikum.if20b231.newslist.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,16 +20,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import at.technikum.if20b231.newslist.NewsListViewModel
 import at.technikum.if20b231.newslist.R
 import at.technikum.if20b231.newslist.modle.Page
 import at.technikum.if20b231.newslist.ui.theme.NewsListTheme
+import at.technikum.if20b231.newslist.viewmodel.NewsListViewModel
 
 @Composable
-fun PageItem(
-    page: Page,
-    navController: NavController
-) {
+fun PageItem(page: Page, navController: NavController) {
     val context = LocalContext.current
     Row(
         modifier = Modifier
@@ -43,17 +41,22 @@ fun PageItem(
 
         Text(
             modifier = Modifier.clickable(enabled = true) {
-                // Toast.makeText(context,"Hallo Welt", Toast.LENGTH_SHORT).show()
-                navController.navigate(route = Screen.PageDetail.withArgs(
-                    page.id.orEmpty(),
-                    page.title.orEmpty(),
-                    page.author.orEmpty(),
-                    page.descriptor.orEmpty().replace("/","\\"),
-                    page.pubDate.toString(),
-                    page.imageURL.orEmpty().replace("/","\\"),
-                    page.articleURL.toString().replace("/","\\")
-//
-                ))
+                if (page == null) {
+                    Toast.makeText(context, "No Details", Toast.LENGTH_SHORT).show()
+                } else {
+
+                    navController.navigate(
+                        route = Screen.PageDetail.withArgs(
+                            page.id.orEmpty(),
+                            page.title.orEmpty(),
+                            page.author.orEmpty(),
+                            page.descriptor.orEmpty().replace("/", "\\"),
+                            page.pubDate.toString(),
+                            page.imageURL.orEmpty().replace("/", "\\"),
+                            page.articleURL.toString().replace("/", "\\")
+                        )
+                    )
+                }
             },
             text = "${page.title}",
             color = Color.Black,
@@ -69,35 +72,37 @@ fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
     val data by model.load.observeAsState()
     var page = data ?: emptyList()
 
-        NewsListTheme {
-            Surface(color = MaterialTheme.colors.background) {
-                Column {
+    NewsListTheme {
+        Surface(color = MaterialTheme.colors.background) {
+            Column {
 
-                    TopAppBar(
-                        title = { Text(stringResource(R.string.app_title)) })
-                    Button(
-                        modifier = Modifier
-                            .background(Color.White)
-                            .fillMaxWidth()
-                            .border(0.02.dp, color = Color.Black)
-                            .padding(8.dp),
+                TopAppBar(
+                    title = { Text(stringResource(R.string.app_title)) })
+                Button(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .fillMaxWidth()
+                        .border(0.02.dp, color = Color.Black)
+                        .padding(8.dp),
 
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
-                        onClick = { /*TODO*/ }
-
-                    ) {
-                        Text(
-                            color = Color.White,
-                            text = stringResource(R.string.reload)
-                        )
-
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),
+                    onClick = {
+                        // TODO: RELOAD
                     }
-                    LazyColumn {
-                        items(items = page) { page ->
-                            PageItem(page = page, navController)
-                        }
+
+                ) {
+                    Text(
+                        color = Color.White,
+                        text = stringResource(R.string.reload)
+                    )
+
+                }
+                LazyColumn {
+                    items(items = page) { page ->
+                        PageItem(page = page, navController)
                     }
                 }
+            }
         }
     }
 }

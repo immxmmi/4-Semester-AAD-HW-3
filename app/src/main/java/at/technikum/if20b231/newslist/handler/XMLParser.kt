@@ -12,9 +12,10 @@ import java.util.*
 
 class XMLParser() {
     private val ns: String? = null
-    @Throws(XmlPullParserException::class, IOException::class)
+    private val formatter: DateFormat? = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz")
 
-    // Parser -> Liefert eine Liste mit Pages
+    @Throws(XmlPullParserException::class, IOException::class)
+    // Parser -> RETURN LIST OF PAGES
     fun parse(inputStream: InputStream): List<Page> {
         inputStream.use { inputStream ->
             val parser: XmlPullParser = Xml.newPullParser()
@@ -35,9 +36,9 @@ class XMLParser() {
             if (parser.eventType != XmlPullParser.START_TAG) {
                 continue
             }
-            // Starts by looking for the entry tag
+            // CHANNEL
             if (parser.name == "channel") {
-                entries = readItem(parser) as MutableList<Page>
+                entries = readChannel(parser) as MutableList<Page>
             } else {
                 skip(parser)
             }
@@ -45,8 +46,8 @@ class XMLParser() {
         return entries
     }
 
-    // ITEM
-    private fun readItem(parser: XmlPullParser): List<Page> {
+    // CHANNEL
+    private fun readChannel(parser: XmlPullParser): List<Page> {
         val entries = mutableListOf<Page>()
 
         parser.require(XmlPullParser.START_TAG, ns, "channel")
@@ -54,9 +55,9 @@ class XMLParser() {
             if (parser.eventType != XmlPullParser.START_TAG) {
                 continue
             }
-            // Starts by looking for the entry tag
+            // ITEM
             if (parser.name == "item") {
-                entries.add(readEntry(parser))
+                entries.add(readItem(parser))
             } else {
                 skip(parser)
             }
@@ -64,10 +65,9 @@ class XMLParser() {
         return entries
     }
 
-    // READ
-    private var formatter: DateFormat? = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz")
+    // READ - ITEM
     @Throws(XmlPullParserException::class, IOException::class)
-    private fun readEntry(parser: XmlPullParser): Page {
+    private fun readItem(parser: XmlPullParser): Page {
         parser.require(XmlPullParser.START_TAG, ns, "item")
         var id: String? = null
         var title: String? = null
@@ -113,7 +113,7 @@ class XMLParser() {
         return title
     }
 
-    // TITLE TAG
+    // LINK TAG
     @Throws(IOException::class, XmlPullParserException::class)
     private fun readLink(parser: XmlPullParser): String {
         parser.require(XmlPullParser.START_TAG, ns, "link")

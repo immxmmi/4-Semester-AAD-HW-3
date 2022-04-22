@@ -8,21 +8,17 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import at.technikum.if20b231.newslist.R
 import at.technikum.if20b231.newslist.modle.Page
 
 
 @Composable
-fun PageScreen(navController: NavController, page: Page) {
-    val context = LocalContext.current
-    // var page = Page("test", "test", "test", "test", null, "test", "test")
+fun SinglePageScreen(page: Page) {
     Column {
         TopAppBar(
             title = { Text(stringResource(R.string.pageTitle)) })
@@ -156,26 +152,11 @@ fun PageScreen(navController: NavController, page: Page) {
                     textDecoration = TextDecoration.Underline
                 )
             }
-
-
-            //   Button(
-            //       modifier = Modifier
-            //           .background(Color.Blue)
-            //           .fillMaxWidth(),
-            //       onClick = {
-            //                    Toast.makeText(context,"Hallo Welt", Toast.LENGTH_SHORT).show()
-
-            //           //navController.navigate(Screen.ListPage.route)
-
-            //       }) {
-            //       Text(text = "back")
-            //   }
         }
-
     }
 }
 
 @Composable
 fun ShowSinglePage(navController: NavController, page: Page) {
-    PageScreen(navController = rememberNavController(), page)
+    SinglePageScreen(page)
 }
