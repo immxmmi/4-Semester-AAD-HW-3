@@ -52,6 +52,11 @@ class NewsListViewModel : ViewModel() {
         return withContext(Dispatchers.IO) { loadXmlFromNetwork(url) }
     }
 
+    //RELOAD RESULT
+     fun reload(){
+         loadPages(pages)
+    }
+
 }
 
 @Throws(XmlPullParserException::class, IOException::class)

@@ -88,7 +88,7 @@ fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
 
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF2D7637)),
                     onClick = {
-                       TODO()
+                       model.reload()
                     }
 
                 ) {
